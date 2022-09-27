@@ -1,7 +1,11 @@
-import 'package:firebase_signin/view/loginpage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_signin/login_page/view/loginpage.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+ await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -10,7 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       
       title: 'Flutter Demo',
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         splashFactory: InkRipple.splashFactory
       ),
-      home:const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
