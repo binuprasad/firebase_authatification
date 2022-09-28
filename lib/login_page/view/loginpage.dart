@@ -5,9 +5,8 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends GetView<LoginPageController> {
-   LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
   final loginController = Get.put(LoginPageController());
-  
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +16,10 @@ class LoginPage extends GetView<LoginPageController> {
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('image/loginpagebackgroundimage.jpeg'),
-                  fit: BoxFit.fill)),
+            image: DecorationImage(
+                image: AssetImage('image/loginpagebackgroundimage.jpeg'),
+                fit: BoxFit.fill),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
@@ -39,7 +39,9 @@ class LoginPage extends GetView<LoginPageController> {
                         Text(
                           'User Login',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 40,color: Colors.grey),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40,
+                              color: Colors.grey),
                         ),
                       ],
                     ),
@@ -47,29 +49,61 @@ class LoginPage extends GetView<LoginPageController> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Email', border: OutlineInputBorder(),
-                         enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(19.0),
+                    child: TextField(
+                      style: const TextStyle(color: Colors.white),
+                      controller: loginController.emailcontroller,
+                      decoration: const InputDecoration(
+                          labelStyle: TextStyle(color: Colors.white),
+                          labelText: 'Email',
+                          border: OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white))),
                     ),
-                        ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'Password', border: OutlineInputBorder(),
-                         enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(19.0),
+                    child: TextField(
+                      obscureText: true,
+                      controller: loginController.passwordcontroller,
+                      decoration: const InputDecoration(
+                        labelStyle: TextStyle(color: Colors.grey),
+                        labelText: 'Password',
+                        border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+            //             suffixIcon: IconButton(
+            // icon: Icon(
+            //   // Based on passwordVisible state choose the icon
+            //   loginController. passwordVisible
+            //    ? Icons.visibility
+            //    : Icons.visibility_off,
+            //    color:Colors.amber,
+            //    ),
+            // onPressed: () {
+               
+            //        _passwordVisible = !_passwordVisible;
+             
+            //  },
+            // ),
+                        
                       ),
-                    ),),
+                    ),
                   ),
                   const SizedBox(
                     height: 5,
@@ -78,26 +112,38 @@ class LoginPage extends GetView<LoginPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                          onPressed: () {
-                            Get.to(const UserData());
-                          },
-                          child: const Text(
-                            'Create New Account',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
+                        onPressed: () {
+                          Get.to(
+                            UserData(),
+                          );
+                        },
+                        child: const Text(
+                          'Create New Account',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
                       const Text(
                         'Forgot password?',
-                        style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ],
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: double.maxFinite,
-                    child: ElevatedButton(
-                        onPressed: () {}, child: const Text('Sign in ')),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 19.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20)),
+                      height: 50,
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            loginController.signIn();
+                          }, child: const Text('Sign in ')),
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
@@ -110,15 +156,18 @@ class LoginPage extends GetView<LoginPageController> {
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: const Divider(
                           thickness: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
-                      const Text('OR'),
+                      const Text(
+                        'OR',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: const Divider(
                           thickness: 1,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -129,16 +178,24 @@ class LoginPage extends GetView<LoginPageController> {
                   FittedBox(
                     child: Row(
                       children: [
-                        SignInButton(
-                          Buttons.Google,
-                          text: "Sign up with Google",
-                          onPressed: () {},
+                        SizedBox(
+                          height: 100,
+                          child: SignInButton(
+                            Buttons.Google,
+                            text: "Sign up with Google",
+                            onPressed: () {},
+                          ),
                         ),
                         const SizedBox(
                           width: 5,
                         ),
-                        SignInButton(Buttons.Facebook,
-                            text: 'Sign up with Facebook', onPressed: () {})
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30)),
+                          height: 100,
+                          child: SignInButton(Buttons.Facebook,
+                              text: 'Sign up with Facebook', onPressed: () {}),
+                        )
                       ],
                     ),
                   ),
