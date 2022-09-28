@@ -5,6 +5,6 @@ class UserDatacontroller extends  GetxController{
    
 
    toNavigateView(){
-    Get.to( const ViewPageScreen());
+    Get.to(  ViewPageScreen());
    }
 }

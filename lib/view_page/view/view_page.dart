@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_signin/view_page/controller/view_page_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ViewPageScreen extends StatelessWidget {
-  const ViewPageScreen({Key? key}) : super(key: key);
+class ViewPageScreen extends GetView<ViewPageController> {
+  ViewPageScreen({Key? key}) : super(key: key);
 
+  final viewpagecontroller =Get.put(ViewPageController()); 
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,75 +25,83 @@ class ViewPageScreen extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: SingleChildScrollView(
             child: Column(
-              children: const [
-                SizedBox(
+              children: [
+                const SizedBox(
                   height: 30,
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 70,
                   child: Image(image: AssetImage('image/person.png')),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
                     decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'name',
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
+                      labelStyle: TextStyle(color: Colors.white),
+                      labelText: 'name',
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
                     decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'phone',
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
+                      labelStyle: TextStyle(color: Colors.white),
+                      labelText: 'phone',
+                      border: OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    
+                    readOnly: true,
                     decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: 'email',
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
+                      labelStyle: const TextStyle(color: Colors.white),
+                      labelText: user.email,
+                      border: const OutlineInputBorder(),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.green))),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.green),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: TextField(
                     decoration: InputDecoration(
@@ -106,30 +119,34 @@ class ViewPageScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // const SizedBox(height: 20,),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: SizedBox(
-                //     height: 50,
-                //     width: double.infinity,
-                //     child: ElevatedButton(
-                //       style: ButtonStyle(
-                //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                //       RoundedRectangleBorder(
-
-                //         borderRadius: BorderRadius.circular(10.0),
-                //         side: const BorderSide(color: Colors.blue)
-                //       )
-                //     ),
-                //       ),
-                //       onPressed: () {},
-                //       child: const Text(
-                //         'Login',
-                //         style: TextStyle(fontSize: 20),
-                //       ),
-                //     ),
-                //   ),
-                // )
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: const BorderSide(color: Colors.blue),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                      viewpagecontroller.logout();
+                      },
+                      child: const Text(
+                        'Logout',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
